@@ -1,0 +1,320 @@
+:root {
+    --sidebar-width: 320px;
+    --body-text-color: #333;
+    --body-bg-color: #fff;
+    --nav-bg-color: #f5f5f5;
+    --theme-area-bg-color: #5e42a6;
+    --theme-area-text-color: #fff;
+    --theme-area-bg-color-hover: #694ab7;
+    --theme-area-text-color-hover: #fff;
+    --theme-text-color: #5e42a6;
+    --arrow-color: #5e42a6;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-family: "Noto Sans";
+    color: var(--body-text-color);
+    background: var(--body-bg-color);
+    font-size: 16px;
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: var(--sidebar-width);
+    background: var(--nav-bg-color);
+}
+
+nav a {
+    text-decoration: none;
+    padding: 10px 20px;
+    display: block;
+    color: inherit;
+    transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+nav a.active {
+    color: var(--theme-area-text-color);
+    background: var(--theme-area-bg-color);
+}
+
+nav a:hover {
+    color: var(--theme-area-text-color-hover);
+    background: var(--theme-area-bg-color-hover);
+}
+
+.nav-level-2 a {
+    padding-left: 40px;
+}
+
+main {
+    margin-left: var(--sidebar-width);
+    padding: 20px;
+}
+
+h1 {
+    font-size: 34px;
+    font-weight: normal;
+    color: var(--theme-text-color);
+}
+
+h2 {
+    font-size: 26px;
+    font-weight: normal;
+    color: var(--theme-text-color);
+    margin-top: 80px;
+}
+
+h3 {
+    font-size: 20px;
+    font-weight: normal;
+    color: var(--theme-text-color);
+    margin-top: 80px;
+}
+
+h4 {
+    font-size: 17px;
+    color: var(--theme-text-color);
+    margin-top: 30px;
+}
+
+h5 {
+    font-size: 14px;
+    color: var(--theme-text-color);
+    margin-top: 20px;
+}
+
+h6 {
+    font-size: 14px;
+    color: var(--theme-text-color);
+    font-style: italic;
+    font-weight: normal;
+    margin-left: 50px;
+}
+
+h6 + p {
+    font-size: 14px;
+    margin-left: 50px;
+    text-indent: 0;
+}
+
+h4.example-header {
+    margin-bottom: 10px;
+}
+
+h5 + p {
+    margin-top: 5px;
+}
+
+.hx-hash-link {
+    opacity: 0.3;
+    text-decoration: none;
+    color: var(--body-text-color);
+    transition: opacity 0.2s ease;
+    outline: none;
+}
+
+.hx-hash-link:hover {
+    opacity: 0.9;
+}
+
+section > div {
+    padding: 10px 10px 10px 20px;
+}
+
+p {
+    font-size: 16px;
+    max-width: 800px;
+    text-align: justify;
+    margin: 10px 0;
+    line-height: 1.6;
+    text-indent: 2em;
+}
+
+p > * {
+    text-indent: initial;
+}
+
+p + .canvas {
+    margin-top: 100px;
+}
+
+p:first-child {
+    margin-top: 0;
+}
+
+p:last-child {
+    margin-bottom: 0;
+}
+
+p a {
+    color: var(--theme-text-color);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+p a:hover {
+    text-decoration: underline;
+}
+
+.arrow {
+    display: block;
+    width: 50px;
+    height: 5px;
+    background: var(--arrow-color);
+    position: relative;
+}
+
+.arrow::before,
+.arrow::after {
+    position: absolute;
+    right: -4px;
+    content: " ";
+    display: block;
+    width: 25px;
+    height: 5px;
+    background: var(--arrow-color);
+}
+
+.arrow::before {
+    transform: rotate(45deg);
+    top: -7px;
+}
+
+.arrow::after {
+    transform: rotate(-45deg);
+    top: 7px;
+}
+
+.arrow-with-number {
+    position: relative;
+    display: block;
+}
+
+.arrow-with-number .arrow {
+    position: absolute;
+    transform: rotate(0deg);
+    transform-origin: 2.5px 2.5px;
+}
+
+.arrow-with-number .number {
+    display: inline-block;
+    position: absolute;
+    left: -13px;
+    top: -13px;
+    width: 32px;
+    height: 32px;
+    border-radius: 3px;
+    font-size: 20px;
+    line-height: 32px;
+    background: var(--theme-area-bg-color);
+    color: var(--theme-area-text-color);
+    text-align: center;
+    font-weight: bold;
+}
+
+img {
+    box-shadow: #ccc 0 0 6px;
+    border-radius: 5px;
+    border: 1px solid #fff;
+}
+
+.canvas {
+    position: relative;
+    padding: 50px;
+}
+
+.canvas .arrow-with-number {
+    position: absolute;
+}
+
+.canvas-ref {
+    display: inline-block;
+    width: 24px;
+    height: 22px;
+    border-radius: 3px;
+    text-align: center;
+    font-weight: bold;
+    background: var(--theme-area-bg-color);
+    color: var(--theme-area-text-color);
+}
+span.var {
+    font-style: italic;
+}
+
+.bibref-container {
+    background: var(--nav-bg-color);
+    margin-top: 30px;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.bibref-info {
+    font-weight: bold;
+    display: block;
+}
+
+.bibref-ref {
+    font-style: italic;
+}
+
+.code {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    background: var(--nav-bg-color);
+    border-radius: 5px;
+    line-height: 2;
+}
+
+.line-numbers {
+    text-align: right;
+    font-weight: bold;
+    font-family: monospace;
+    flex: 0 0 auto;
+    background: var(--theme-area-bg-color);
+    color: var(--theme-area-text-color);
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+code {
+    font-family: monospace;
+    flex: 1 1 auto;
+}
+
+code > div {
+    white-space: pre-line;
+}
+
+.line-numbers > div,
+code > div {
+    padding: 0 20px;
+}
+
+.line-numbers > div {
+    border-top: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+code > div {
+    border-top: 1px solid rgba(255, 255, 255, 1);
+}
+
+.line-numbers > div:first-child,
+code > div:first-child {
+    border-top: 0;
+}
+
+code.inline {
+    background: var(--nav-bg-color);
+    padding: 2px 5px;
+}

@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>STV Demo Documentation</title>
+        <meta charset="utf-8" />
+        <link type="text/css" rel="stylesheet" href="fonts/NotoSans/NotoSans.css" />
+        <link type="text/css" rel="stylesheet" href="style.css" />
+        <script type="text/javascript" src="scripts.js"></script>
+        <style type="text/css">
+            .loading-spinner {
+                display: inline-block;
+                position: fixed;
+                left: 50%;
+                top: 50%;
+                margin-left: -40px;
+                margin-top: -40px;
+                width: 80px;
+                height: 80px;
+                z-index: 999;
+                opacity: 1;
+                transition: opacity 0.25s ease;
+            }
+            .loading-spinner:after {
+                content: " ";
+                display: block;
+                width: 64px;
+                height: 64px;
+                margin: 8px;
+                border-radius: 50%;
+                border: 6px solid #000;
+                border-color: #000 transparent #000 transparent;
+                animation: loading-spinner 0.5s linear infinite;
+            }
+            @keyframes loading-spinner {
+                0% {
+                    transform: rotate(0deg);
+                }
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+            nav,
+            main {
+                opacity: 0;
+                transition: opacity 0.5s ease;
+            }
+            body.loaded .loading-spinner {
+                opacity: 0;
+            }
+            body.loaded nav,
+            body.loaded main {
+                opacity: 1;
+            }
+            body:not(.loaded) {
+                overflow: hidden;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="loading-spinner">
+        </div>
+        <nav>
+            <ul class="nav-level-1">
+                <li>
+                    <a href="#user-interface">User interface</a>
+                </li>
+                <li>
+                    <a href="#partial-order-reduction">Partial order reduction</a>
+                </li>
+                <li>
+                    <a href="#bisimulation">Bisimulation</a>
+                </li>
+                <li>
+                    <a href="#verification">Verification</a>
+                </li>
+                <li>
+                    <a href="#parameterized-models">Parameterized models</a>
+                    <ul class="nav-level-2">
+                        <li>
+                            <a href="#parameterized-models--tian-ji">Tian Ji</a>
+                        </li>
+                        <li>
+                            <a href="#parameterized-models--castles">Castles</a>
+                        </li>
+                        <li>
+                            <a href="#parameterized-models--bridge-endplay">Bridge Endplay</a>
+                        </li>
+                        <li>
+                            <a href="#parameterized-models--drones">Drones</a>
+                        </li>
+                        <li>
+                            <a href="#parameterized-models--simple-voting">Simple Voting</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#model-file">Model file</a>
+                </li>
+                <li>
+                    <a href="#mapping-file">Mapping file</a>
+                </li>
+            </ul>
+        </nav>
+        <main>
+            <h1>STV Demo Documentation</h1>
+            <section>
+                <h2>User interface <a id="user-interface" href="#user-interface" class="hx-hash-link">#</a></h2>
+                <div>
+                    <div class="canvas">
+                        <img src="./images/gui.png" />
+                        <span class="arrow-with-number" style="left: 1000px; top: 5px;">
+                            <span class="arrow" style="transform: rotate(45deg);"></span>
+                            <span class="number">1</span>
+                        </span>
+                        <span class="arrow-with-number" style="left: 1160px; top: 85px;">
+                            <span class="arrow" style="transform: rotate(135deg);"></span>
+                            <span class="number">2</span>
+                        </span>
+                        <span class="arrow-with-number" style="left: 470px; top: 5px;">
+                            <span class="arrow" style="transform: rotate(135deg);"></span>
+                            <span class="number">3</span>
+                        </span>
+                        <span class="arrow-with-number" style="left: 1120px; top: 850px;">
+                            <span class="arrow" style="transform: rotate(180deg);"></span>
+                            <span class="number">4</span>
+                        </span>
+                        <span class="arrow-with-number" style="left: 1075px; top: 995px;">
+                            <span class="arrow" style="transform: rotate(270deg);"></span>
+                            <span class="number">5</span>
+                        </span>
+                        <span class="arrow-with-number" style="left: 955px; top: 495px;">
+                            <span class="arrow" style="transform: rotate(180deg);"></span>
+                            <span class="number">6</span>
+                        </span>
+                        <span class="arrow-with-number" style="left: 1073px; top: 735px;">
+                            <span class="arrow" style="transform: rotate(90deg);"></span>
+                            <span class="number">7</span>
+                        </span>
+                        <span class="arrow-with-number" style="left: 260px; top: 255px;">
+                            <span class="arrow" style="transform: rotate(135deg);"></span>
+                            <span class="number">8</span>
+                        </span>
+                        <span class="arrow-with-number" style="left: 640px; top: 390px;">
+                            <span class="arrow" style="transform: rotate(135deg);"></span>
+                            <span class="number">9</span>
+                        </span>
+                    </div>
+                    <p>The STV Demo interface consists of two main panels - the sidebar <span class="canvas-ref">1</span> and the graph container <span class="canvas-ref">3</span>. The sidebar contains three tabs that can be used to generate a model, verify it and view node details. Mode selector <span class="canvas-ref">2</span> can be used to switch between verification, partial order reduction and bisimulation. After selecting the desired mode and specifying model parameters, a graph can be generated. Then it becomes possible to verify the model.</p>
+                    <p>Graph display options can be changed in area <span class="canvas-ref">4</span>. Graph can be zoomed in, zoomed out and zoomed to fit the viewport in area <span class="canvas-ref">5</span>. Zooming in and out is also possible by using mouse wheel. Graph viewport can be resized using handle <span class="canvas-ref">6</span>, whereas handle <span class="canvas-ref">7</span> can be used to resize panels in the sidebar. Nodes <span class="canvas-ref">9</span> can be dragged around. When clicked, node details can be viewed in the sidebar details tab. Starting nodes are marked with blue color as shown in <span class="canvas-ref">8</span>.</p>
+                    <p>When model is sourced from a file in verification and partial reduction modes, the main panel <span class="canvas-ref">3</span> contains tabs with the main model and agent models.</p>
+                </div>
+            </section>
+            <section>
+                <h2>Partial order reduction <a id="partial-order-reduction" href="#partial-order-reduction" class="hx-hash-link">#</a></h2>
+                <div>
+                    <div class="canvas">
+                        <img src="./images/partial-order-reduction.png" />
+                        <span class="arrow-with-number" style="left: 1150px; top: 160px;">
+                            <span class="arrow" style="transform: rotate(135deg);"></span>
+                            <span class="number">1</span>
+                        </span>
+                        <span class="arrow-with-number" style="left: 990px; top: 320px;">
+                            <span class="arrow" style="transform: rotate(270deg);"></span>
+                            <span class="number">2</span>
+                        </span>
+                        <span class="arrow-with-number" style="left: 1160px; top: 320px;">
+                            <span class="arrow" style="transform: rotate(270deg);"></span>
+                            <span class="number">3</span>
+                        </span>
+                        <span class="arrow-with-number" style="left: 300px; top: 5px;">
+                            <span class="arrow" style="transform: rotate(135deg);"></span>
+                            <span class="number">4</span>
+                        </span>
+                    </div>
+                    <p>Partial order reduction can be performed by selecting a model file using input <span class="canvas-ref">1</span>. Then global and reduced models can be generated using buttons <span class="canvas-ref">2</span> and <span class="canvas-ref">3</span>. Once model is generated, tabs containing graphs of the model and agents appear in <span class="canvas-ref">4</span>.</p>
+                    <div class="canvas">
+                        <img src="./images/partial-order-reduction--verify.png" />
+                        <span class="arrow-with-number" style="left: 1010px; top: -5px;">
+                            <span class="arrow" style="transform: rotate(90deg);"></span>
+                            <span class="number">1</span>
+                        </span>
+                        <span class="arrow-with-number" style="left: 850px; top: 218px;">
+                            <span class="arrow" style="transform: rotate(0deg);"></span>
+                            <span class="number">2</span>
+                        </span>
+                        <span class="arrow-with-number" style="left: 1298px; top: 218px;">
+                            <span class="arrow" style="transform: rotate(180deg);"></span>
+                            <span class="number">3</span>
+                        </span>
+                        <span class="arrow-with-number" style="left: 1298px; top: 313px;">
+                            <span class="arrow" style="transform: rotate(180deg);"></span>
+                            <span class="number">4</span>
+                        </span>
+                        <span class="arrow-with-number" style="left: 1298px; top: 362px;">
+                            <span class="arrow" style="transform: rotate(180deg);"></span>
+                            <span class="number">5</span>
+                        </span>
+                        <span class="arrow-with-number" style="left: 865px; top: 380px;">
+                            <span class="arrow" style="transform: rotate(45deg);"></span>
+                            <span class="number">6</span>
+                        </span>
+                    </div>
+                    <p>When global and reduced models are generated, verification can be performed in sidebar tab <span class="canvas-ref">1</span>. The global model can be verified using various algorithms: lower approximation <span class="canvas-ref">2</span>, upper approximation <span class="canvas-ref">3</span> and Domino DFS <span class="canvas-ref">5</span>. Heuristic for Domino DFS can be chosen using <span class="canvas-ref">4</span>. Analogous verification interface is available for the reduced model as shown in <span class="canvas-ref">6</span>.</p>
+                </div>
+            </section>
+            <section>
+                <h2>Bisimulation <a id="bisimulation" href="#bisimulation" class="hx-hash-link">#</a></h2>
+                <div>
+                    <div class="canvas">
+                        <img src="./images/bisimulation.png" />
+                        <span class="arrow-with-number" style="left: 1295px; top: 192px;">
+                            <span class="arrow" style="transform: rotate(180deg);"></span>
+                            <span class="number">1</span>
+                        </span>
+                        <span class="arrow-with-number" style="left: 1295px; top: 270px;">
+                            <span class="arrow" style="transform: rotate(180deg);"></span>
+                            <span class="number">2</span>
+                        </span>
+                        <span class="arrow-with-number" style="left: 1295px; top: 320px;">
+                            <span class="arrow" style="transform: rotate(180deg);"></span>
+                            <span class="number">3</span>
+                        </span>
+                        <span class="arrow-with-number" style="left: 1295px; top: 415px;">
+                            <span class="arrow" style="transform: rotate(180deg);"></span>
+                            <span class="number">4</span>
+                        </span>
+                        <span class="arrow-with-number" style="left: 1295px; top: 464px;">
+                            <span class="arrow" style="transform: rotate(180deg);"></span>
+                            <span class="number">5</span>
+                        </span>
+                        <span class="arrow-with-number" style="left: 1050px; top: 551px;">
+                            <span class="arrow" style="transform: rotate(180deg);"></span>
+                            <span class="number">6</span>
+                        </span>
+                    </div>
+                    <p>Left and right model graphs can be generated by selecting files containing models <span class="canvas-ref">1</span> and <span class="canvas-ref">2</span> and pressing the "Generate" button <span class="canvas-ref">3</span>. Bisimulation can be performed by selecting the mapping file <span class="canvas-ref">4</span> and pressing the "Check" button <span class="canvas-ref">5</span>. The coalition is shown in area <span class="canvas-ref">6</span>.</p>
+                    <div class="canvas">
+                        <img src="./images/bisimulation--verify.png" />
+                        <span class="arrow-with-number" style="left: 1010px; top: -5px;">
+                            <span class="arrow" style="transform: rotate(90deg);"></span>
+                            <span class="number">1</span>
+                        </span>
+                        <span class="arrow-with-number" style="left: 850px; top: 177px;">
+                            <span class="arrow" style="transform: rotate(0deg);"></span>
+                            <span class="number">2</span>
+                        </span>
+                        <span class="arrow-with-number" style="left: 850px; top: 261px;">
+                            <span class="arrow" style="transform: rotate(0deg);"></span>
+                            <span class="number">3</span>
+                        </span>
+                        <span class="arrow-with-number" style="left: 1298px; top: 261px;">
+                            <span class="arrow" style="transform: rotate(180deg);"></span>
+                            <span class="number">4</span>
+                        </span>
+                        <span class="arrow-with-number" style="left: 1298px; top: 356px;">
+                            <span class="arrow" style="transform: rotate(180deg);"></span>
+                            <span class="number">5</span>
+                        </span>
+                        <span class="arrow-with-number" style="left: 1298px; top: 405px;">
+                            <span class="arrow" style="transform: rotate(180deg);"></span>
+                            <span class="number">6</span>
+                        </span>
+                        <span class="arrow-with-number" style="left: 865px; top: 430px;">
+                            <span class="arrow" style="transform: rotate(45deg);"></span>
+                            <span class="number">7</span>
+                        </span>
+                    </div>
+                    <p>When both models are generated, verification can be performed in sidebar tab <span class="canvas-ref">1</span>. The formula for verification is shown in <span class="canvas-ref">2</span>. The left model can be verified using various algorithms: lower approximation <span class="canvas-ref">3</span>, upper approximation <span class="canvas-ref">4</span> and Domino DFS <span class="canvas-ref">6</span>. Heuristic for Domino DFS can be chosen using <span class="canvas-ref">5</span>. Analogous verification interface is available for the right model as shown in <span class="canvas-ref">7</span>.</p>
+                </div>
+            </section>
+            <section>
+                <h2>Verification <a id="verification" href="#verification" class="hx-hash-link">#</a></h2>
+                <div>
+                    <div class="canvas">
+                        <img src="./images/verification.png" />
+                        <span class="arrow-with-number" style="left: 880px; top: 120px;">
+                            <span class="arrow" style="transform: rotate(45deg);"></span>
+                            <span class="number">1</span>
+                        </span>
+                    </div>
+                    <p>Verification can be performed by selecting the desired model using <span class="canvas-ref">1</span>. The model can be read from a file or it can be generated from a parameterized model template. These templates are described in the <a href="#parameterized-models">Parameterized models</a> section.</p>
+                    <div class="canvas">
+                        <img src="./images/verification--verify.png" />
+                        <span class="arrow-with-number" style="left: 1010px; top: -5px;">
+                            <span class="arrow" style="transform: rotate(90deg);"></span>
+                            <span class="number">1</span>
+                        </span>
+                        <span class="arrow-with-number" style="left: 850px; top: 136px;">
+                            <span class="arrow" style="transform: rotate(0deg);"></span>
+                            <span class="number">2</span>
+                        </span>
+                        <span class="arrow-with-number" style="left: 850px; top: 218px;">
+                            <span class="arrow" style="transform: rotate(0deg);"></span>
+                            <span class="number">3</span>
+                        </span>
+                        <span class="arrow-with-number" style="left: 1298px; top: 218px;">
+                            <span class="arrow" style="transform: rotate(180deg);"></span>
+                            <span class="number">4</span>
+                        </span>
+                        <span class="arrow-with-number" style="left: 1298px; top: 313px;">
+                            <span class="arrow" style="transform: rotate(180deg);"></span>
+                            <span class="number">5</span>
+                        </span>
+                        <span class="arrow-with-number" style="left: 1298px; top: 362px;">
+                            <span class="arrow" style="transform: rotate(180deg);"></span>
+                            <span class="number">6</span>
+                        </span>
+                    </div>
+                    <p>When model is generated, verification can be performed in sidebar tab <span class="canvas-ref">1</span>. The formula for verification is shown in <span class="canvas-ref">2</span>. The left model can be verified using various algorithms: lower approximation <span class="canvas-ref">3</span>, upper approximation <span class="canvas-ref">4</span> and Domino DFS <span class="canvas-ref">6</span>. Heuristic for Domino DFS can be chosen using <span class="canvas-ref">5</span>.</p>
+                </div>
+            </section>
+            <section>
+                <h2>Parameterized models <a id="parameterized-models" href="#parameterized-models" class="hx-hash-link">#</a></h2>
+                <div>
+                    <p>Verification can be performed using a model file or one of available parameterized models:</p>
+                    <section>
+                        <h3>Tian Ji <a id="parameterized-models--tian-ji" href="#parameterized-models--tian-ji" class="hx-hash-link">#</a></h3>
+                        <div>
+                            <div class="canvas">
+                                <img src="./images/parameterized-models--tian-ji.png" />
+                                <span class="arrow-with-number" style="left: 445px; top: 260px;">
+                                    <span class="arrow" style="transform: rotate(180deg);"></span>
+                                    <span class="number">N</span>
+                                </span>
+                            </div>
+                            <p>This model verifies existence of a winning strategy in the ancient story of Tian Ji. Tian Ji races <span class="var">N</span> horses against King's <span class="var">N</span> horses in <span class="var">N</span> rounds. Each horse is raced exactly one time. Horses are characterized by their speed. In each round the person with the faster horse wins. In case of a draw, the King wins the round. The goal is to ensure that Tian Ji has a winning strategy.</p>
+                            <p>This model has one paramter <span class="canvas-ref">N</span> - the number of horses.</p>
+                            <p class="bibref-container">
+                                <span class="bibref-info">More information about this model is available here:</span>
+                                <span class="bibref-ref">A. Lomuscio, H. Qu, and F. Raimondi. 2015. MCMAS: An Open-Source Model Checker for the Verification of Multi-Agent Systems. International Journal on Software Tools for Technology ransfer (2015). <a href="https://doi.org/10.1007/s10009-015-0378-x">https://doi.org/10.1007/s10009-015-0378-x</a></span>
+                            </p>
+                        </div>
+                    </section>
+                    <section>
+                        <h3>Castles <a id="parameterized-models--castles" href="#parameterized-models--castles" class="hx-hash-link">#</a></h3>
+                        <div>
+                            <div class="canvas">
+                                <img src="./images/parameterized-models--castles.png" />
+                                <span class="arrow-with-number" style="left: 445px; top: 260px;">
+                                    <span class="arrow" style="transform: rotate(180deg);"></span>
+                                    <span class="number">C1</span>
+                                </span>
+                                <span class="arrow-with-number" style="left: 445px; top: 304px;">
+                                    <span class="arrow" style="transform: rotate(180deg);"></span>
+                                    <span class="number">C2</span>
+                                </span>
+                                <span class="arrow-with-number" style="left: 445px; top: 348px;">
+                                    <span class="arrow" style="transform: rotate(180deg);"></span>
+                                    <span class="number">C3</span>
+                                </span>
+                                <span class="arrow-with-number" style="left: 445px; top: 392px;">
+                                    <span class="arrow" style="transform: rotate(180deg);"></span>
+                                    <span class="number">HP</span>
+                                </span>
+                            </div>
+                            <p>The model verifies existence of a winning strategy in the Castles problem. There are three castles with <span class="var">C1</span>, <span class="var">C2</span> and <span class="var">C3</span> workers respectively. Each castle has <span class="var">HP</span> health points. In each round workers can execute one of three actions: attack another castle, defend their castle or do nothing. Doing nothing is the only available action to a worker of a defeated castle. No agent can defend it's castle twice in a row. A castle gets damaged if the number of attackers is greater than the number of defenders. The damage is equal to the difference between the number of attackers nad defenders. A castle is defeated once it reaches 0 HP. Every worker knows actions they can perform in each round and they know which castles have been defeated.</p>
+                            <p>This model has four parameters: <span class="canvas-ref">C1</span>, <span class="canvas-ref">C2</span>, <span class="canvas-ref">C3</span> - the number of workers in each castle and <span class="canvas-ref">HP</span> - the number of health points that each castle starts with. The STV demo checks whether there is a strategy to defeat the third castle.</p>
+                            <p class="bibref-container">
+                                <span class="bibref-info">More information about this model is available here:</span>
+                                <span class="bibref-ref">J. Pilecki, M.A. Bednarczyk, and W. Jamroga. 2017. SMC: Synthesis of Uniform Strategies and Verification of Strategic Ability for Multi-Agent Systems. Journal of Logic and Computation 27, 7 (2017), 1871–1895. <a href="https://doi.org/10.1093/logcom/exw032">https://doi.org/10.1093/logcom/exw032</a></span>
+                            </p>
+                        </div>
+                    </section>
+                    <section>
+                        <h3>Bridge Endplay <a id="parameterized-models--bridge-endplay" href="#parameterized-models--bridge-endplay" class="hx-hash-link">#</a></h3>
+                        <div>
+                            <div class="canvas">
+                                <img src="./images/parameterized-models--bridge-endplay.png" />
+                                <span class="arrow-with-number" style="left: 445px; top: 260px;">
+                                    <span class="arrow" style="transform: rotate(180deg);"></span>
+                                    <span class="number">D</span>
+                                </span>
+                                <span class="arrow-with-number" style="left: 445px; top: 304px;">
+                                    <span class="arrow" style="transform: rotate(180deg);"></span>
+                                    <span class="number">C</span>
+                                </span>
+                            </div>
+                            <p>The model verifies of existence of a winning strategy in the Bridge Endplay problem. The goal is to find a winning strategy for the declarer.</p>
+                            <p>This model has two parameters: <span class="canvas-ref">D</span> - the number of cards per player and <span class="canvas-ref">C</span> - the number of cards in hand.</p>
+                            <p class="bibref-container">
+                                <span class="bibref-info">More information about this model is available here:</span>
+                                <span class="bibref-ref">W. Jamroga, M. Knapik, and D. Kurpiewski. 2017. Fixpoint Approximation of Strategic Abilities under Imperfect Information. In Proceedings of the 16th International Conference on Autonomous Agents and Multiagent Systems (AAMAS). IFAAMAS, 1241–1249.</span>
+                            </p>
+                        </div>
+                    </section>
+                    <section>
+                        <h3>Drones <a id="parameterized-models--drones" href="#parameterized-models--drones" class="hx-hash-link">#</a></h3>
+                        <div>
+                            <div class="canvas">
+                                <img src="./images/parameterized-models--drones.png" />
+                                <span class="arrow-with-number" style="left: 445px; top: 260px;">
+                                    <span class="arrow" style="transform: rotate(180deg);"></span>
+                                    <span class="number">N</span>
+                                </span>
+                                <span class="arrow-with-number" style="left: 445px; top: 304px;">
+                                    <span class="arrow" style="transform: rotate(180deg);"></span>
+                                    <span class="number">E</span>
+                                </span>
+                            </div>
+                            <p>The model verifies existence of a winning strategy in the Drones problem. There is a map that is represented by a graph. There are <span class="var">N</span> drones in the starting node of the graph (location). Each drone starts with <span class="var">E</span> energy points. In each round each drone can perform one of five actions: go North, go South, go East, go West or wait. Every move consumes one energy point. When drone has no energy left it can only wait. Each drone knows it's current location, current reading from it's sensor, readings from adjacent drones, readings from all ground sensors, battery charge level and set of visited locations. The goal is to check existence ofa strategy that guarantees that at least two locations have been visited.</p>
+                            <p>This model has two parameters: <span class="canvas-ref">N</span> - the number of drones and <span class="canvas-ref">E</span> - the number of energy points each drone starts with.</p>
+                            <p class="bibref-container">
+                                <span class="bibref-info">More information about this model is available here:</span>
+                                <span class="bibref-ref">W. Jamroga, B. Konikowska, W. Penczek, and D. Kurpiewski. 2019. Multi-Valued Verification of Strategic Ability. (2019)</span>
+                            </p>
+                        </div>
+                    </section>
+                    <section>
+                        <h3>Simple Voting <a id="parameterized-models--simple-voting" href="#parameterized-models--simple-voting" class="hx-hash-link">#</a></h3>
+                        <div>
+                            <div class="canvas">
+                                <img src="./images/parameterized-models--simple-voting.png" />
+                                <span class="arrow-with-number" style="left: 445px; top: 260px;">
+                                    <span class="arrow" style="transform: rotate(180deg);"></span>
+                                    <span class="number">V</span>
+                                </span>
+                                <span class="arrow-with-number" style="left: 445px; top: 304px;">
+                                    <span class="arrow" style="transform: rotate(180deg);"></span>
+                                    <span class="number">C</span>
+                                </span>
+                            </div>
+                            <p>There are <span class="var">V</span> voters, 1 coercer and <span class="var">C</span> candidates. Voters can wait or cast a vote. After voting, they can give the coercer a proof of how they voted or refuse to do that. Then the coercer can either punish or decide not to punish the voter. The STV Demo checks existence of a strategy for voter 1 to cast a vote on candidate other than candidate 1 and avoid punishment.</p>
+                            <p>The model has two parameters: <span class="canvas-ref">V</span> - the number of voters and <span class="canvas-ref">C</span> - the number of candidates.</p>
+                            <p class="bibref-container">
+                                <span class="bibref-info">More information about this model is available here:</span>
+                                <span class="bibref-ref">W. Jamroga, M. Knapik, and D. Kurpiewski. 2017. Fixpoint Approximation of Strategic Abilities under Imperfect Information. In Proceedings of the 16th International Conference on Autonomous Agents and Multiagent Systems (AAMAS). IFAAMAS, 1241–1249.</span>
+                            </p>
+                        </div>
+                    </section>
+                </div>
+            </section>
+            <section>
+                <h2>Model file <a id="model-file" href="#model-file" class="hx-hash-link">#</a></h2>
+                <div>
+                    <p>Model files contain agent definitions and property definitions. Empty lines and Lines starting with <code class="inline">%</code> (comments) are be ignored.</p>
+                    <h5>COALITION property definition</h5>
+                    <p>This definition starts with uppercase property name (<code class="inline">COALITION</code>), followed by a colon <code class="inline">:</code>, followed by an <em>Array of agent identifiers</em>.</p>
+                    <h6>Array of agent identifiers:</h6>
+                    <p>Starts with <code class="inline">[</code>, followed by comma-separated agent identifiers, followed by <code class="inline">]</code>. Example: <code class="inline">[Voter1, Voter2]</code>.</p>
+                    <h5>PERSISTENT, REDUCTION and GOAL property definitions</h5>
+                    <p>These definitions start with uppercase property name (<code class="inline">PERSISTENT</code>, <code class="inline">REDUCTION</code>, <code class="inline">GOAL</code>), followed by a colon <code class="inline">:</code>, followed by an <em>Array of variable identifiers</em>.</p>
+                    <h6>Array of variable identifiers:</h6>
+                    <p>Starts with <code class="inline">[</code>, followed by comma-separated variable identifiers, followed by <code class="inline">]</code>. Example: <code class="inline">[win1, win2]</code>.</p>
+                    <h5>FORMULA property definition</h5>
+                    <p>This definition starts with uppercase property name (<code class="inline">FORMULA</code>), followed by a colon <code class="inline">:</code>, followed by a formula. Example: <code class="inline">FORMULA: &lt;&lt;Controller1&gt;&gt;F(Train1_in=True | Train2_in=True)</code>.</p>
+                    <h5>SHOW_EPISTEMIC property definition</h5>
+                    <p>This definition starts with uppercase property name (<code class="inline">SHOW_EPISTEMIC</code>), followed by a colon <code class="inline">:</code>, followed by <code class="inline">true</code> or <code class="inline">false</code>. Example: <code class="inline">SHOW_EPISTEMIC: true</code>.</p>
+                    <h5>Agent definition</h5>
+                    <p>Agent definition consists of a set of non-empty lines.</p>
+                    <h6>First line:</h6>
+                    <p>The first line should specify agent name and the number of agents of this type in following format: <code class="inline">Agent&nbsp;AgentName[count]:</code> for example <code class="inline">Agent Voter[3]:</code>. In this example agents with names Voter1, Voter2 and Voter3 will be created.</p>
+                    <h6>Second line:</h6>
+                    <p>The second line should specify the initial state in following format: <code class="inline">init: stateName</code> for example <code class="inline">init: wait</code>.</p>
+                    <h6>Next lines:</h6>
+                    <p>Next lines should contain transition definitions in following format: <code class="inline">name: state1 -&gt; state2</code>. Optionally, the transition can be prefixed with <code class="inline">shared</code> keyword. It's also possible to set vars by appending variable setters to the line: <code class="inline">[var1=true,var2=false,var3=123,...]</code>. Variables can be integers, <code class="inline">true</code> or <code class="inline">false</code>. To set a condition for the transition, replace <code class="inline">-&gt;</code> with <code class="inline">-[varName==varValue]&gt;</code> or <code class="inline">-[varName!=varValue]&gt;</code>.</p>
+                    <p>To create dynamic var/state/transition names, use string <code class="inline">aID</code>. It will be replaced with the name of the agent.</p>
+                    <h4 class="example-header">Model file example:</h4>
+                    <div class="code">
+                        <div class="line-numbers">
+                            <div>1</div>
+                            <div>2</div>
+                            <div>3</div>
+                            <div>4</div>
+                            <div>5</div>
+                            <div>6</div>
+                            <div>7</div>
+                            <div>8</div>
+                            <div>9</div>
+                            <div>10</div>
+                            <div>11</div>
+                            <div>12</div>
+                            <div>13</div>
+                            <div>14</div>
+                            <div>15</div>
+                            <div>16</div>
+                            <div>17</div>
+                            <div>18</div>
+                            <div>19</div>
+                            <div>20</div>
+                            <div>21</div>
+                            <div>22</div>
+                            <div>23</div>
+                            <div>24</div>
+                            <div>25</div>
+                            <div>26</div>
+                        </div>
+                        <code class="multiline">
+                            <div>Agent Voter[1]:</div>
+                            <div>init: start</div>
+                            <div>vote1: start -&gt; voted1</div>
+                            <div>vote2: start -&gt; voted2</div>
+                            <div>shared flip1: voted1 -&gt; fin2</div>
+                            <div>shared pass1: voted1 -&gt; fin1</div>
+                            <div>shared flip2: voted2 -&gt; fin1</div>
+                            <div>shared pass2: voted2 -&gt; fin2</div>
+                            <div>shared pub: fin1 -&gt; pub [win1=true]</div>
+                            <div>shared pub: fin2 -&gt; pub [win2=true]</div>
+                            <div>shared loop: pub -&gt; pub</div>
+                            <div>&nbsp;</div>
+                            <div>Agent Official[1]:</div>
+                            <div>init: start</div>
+                            <div>shared flip1: start -&gt; pub</div>
+                            <div>shared pass1: start -&gt; pub</div>
+                            <div>shared flip2: start -&gt; pub</div>
+                            <div>shared pass2: start -&gt; pub</div>
+                            <div>np: pub -&gt; pub</div>
+                            <div>shared pub: pub -&gt; fin</div>
+                            <div>shared loop: fin -&gt; fin</div>
+                            <div>&nbsp;</div>
+                            <div>REDUCTION: []</div>
+                            <div>COALITION: [Official1]</div>
+                            <div>PERSISTENT: [win1, win2]</div>
+                            <div>FORMULA: &lt;&lt;Official1&gt;&gt;F(win1=true)</div>
+                        </code>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <h2>Mapping file <a id="mapping-file" href="#mapping-file" class="hx-hash-link">#</a></h2>
+                <div>
+                    <p>Mapping files are used when checking bisimulation. Every line should contain either a mapping or a coalition definition.</p>
+                    <h5>Mapping definition</h5>
+                    <p>Mapping consists of comma-separated state identifiers from the first model, followed by <code class="inline">-&gt;</code>, followed by comma-separated state identifiers from the second model. In the following example mappings are specified in lines 1-6.</p>
+                    <h5>Coalition definition</h5>
+                    <p>Coalition definition starts with <code class="inline">coalition:</code> followed by comma-separated agent identifiers. There should be only one coalition definition per file. In the following example a coalition definition is in line 7.</p>
+                    <h4 class="example-header">Mapping file example:</h4>
+                    <div class="code">
+                        <div class="line-numbers">
+                            <div>1</div>
+                            <div>2</div>
+                            <div>3</div>
+                            <div>4</div>
+                            <div>5</div>
+                            <div>6</div>
+                            <div>7</div>
+                        </div>
+                        <code class="multiline">
+                            <div>0 -&gt; 0</div>
+                            <div>1, 2 -&gt; 1</div>
+                            <div>3 -&gt; 3</div>
+                            <div>4 -&gt; 2</div>
+                            <div>5 -&gt; 5</div>
+                            <div>6 -&gt; 4</div>
+                            <div>coalition:1</div>
+                        </code>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </body>
+</html>
